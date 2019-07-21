@@ -1,0 +1,6 @@
+package com.br.jogo.advinhacao.models;
+
+
+@Entity
+public class NumSorteado {
+}

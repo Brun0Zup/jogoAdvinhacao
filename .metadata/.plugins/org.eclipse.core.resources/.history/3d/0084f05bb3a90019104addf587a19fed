@@ -1,0 +1,5 @@
+package com.br.jogo.advinhacao.models;
+
+public class Jogador {
+
+}

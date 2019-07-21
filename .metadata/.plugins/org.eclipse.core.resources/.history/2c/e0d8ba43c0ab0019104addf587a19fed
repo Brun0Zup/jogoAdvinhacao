@@ -1,0 +1,66 @@
+package com.br.jogo.advinhacao.controllers;
+
+import java.util.List;
+import java.util.ArrayList;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.br.jogo.advinhacao.models.Jogador;
+import com.br.jogo.advinhacao.services.JogadorService;
+import com.br.jogo.advinhacao.services.NumSorteadoService;
+
+
+@Controller
+public class NumSorteadoController {
+
+	@Autowired 
+	JogadorService jogadorService;
+	
+	@Autowired
+	NumSorteadoService numSorteadoService;
+	
+	@GetMapping("/")
+	public ModelAndView mapiandoInicio() {
+		ModelAndView modelAndView = new ModelAndView("inicio.html");
+		modelAndView.addObject("vencedores", jogadorService.listarVencedores());
+		
+		return modelAndView;
+	}
+	
+	@PostMapping("/")
+	public ModelAndView salvarGanhador(@Valid Jogador jogador, BindingResult bindingJogador) {
+		ModelAndView modelAndView = new ModelAndView("jogada.html");
+		
+				
+		List<String> mensagens = new ArrayList<String>();
+		List<String> erros = new ArrayList<String>();
+		
+		if(bindingJogador.hasErrors()) {
+			
+			for (ObjectError objectError : bindingJogador.getAllErrors()) {
+				erros.add(objectError.getDefaultMessage());
+				modelAndView.addObject("erros", erros);			
+				
+			}
+			
+		}else {
+			mensagens.add(numSorteadoService.salvarJogo(jogador));
+			modelAndView.addObject("mensagens", mensagens);
+		}
+		
+		return modelAndView;
+		
+		
+	}
+	
+	
+	
+}

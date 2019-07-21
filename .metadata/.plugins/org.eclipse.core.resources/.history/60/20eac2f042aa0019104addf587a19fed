@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div class="menu">
+            <nav>
+                <ul class="lista">
+                    <li> <a class="menu" href="/">Jogar</a> </li>
+
+                </ul>
+            </nav>
+        </div>
+
+        <div class="jogarores">
+            <h1>ListadeGanhadores</h1>
+
+
+            <ul class="ganhadores" th:each="ganhador : ${ganhadores}">
+                <li th:text="'Nome: '+${ganhador.nome}"></li>
+                <li>| </li>
+                <li th:text="'N jogado: '+${ganhador.numeroJogado}"></li>
+                <li>| </li>
+                <li th:text="'N Sorteado: '+${ganhador.numSorteado.numero}"></li><br>
+            </ul>
+
+        </div>
+    </div>
+
+</body>
+</html>
